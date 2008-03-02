@@ -1,0 +1,27 @@
+abbr, acronym {border: 0;}
+address, caption, cite, code, dfn, em, strong, th, var {font-style: normal; font-weight: normal;}
+
+blockquote, body, dd, div, dl, dt, fieldset, form, h1, h2,
+h3, h4, h5, h6, input, li, ol, p, pre, td,
+textarea, th, ul {
+	margin: 0;
+	padding: 0;
+}
+
+caption, th {text-align: left;}
+
+fieldset, img {border: 0;}
+
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+
+ol, ul {list-style: none;}
+
+q:after, q:before {content: '';}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}

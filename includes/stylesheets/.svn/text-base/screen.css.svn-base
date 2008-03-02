@@ -1,0 +1,75 @@
+* html img {padding: 0;}
+*:first-child + html img {padding: 1px 0 0 0;}
+
+a:link, a:visited {color: #000;}
+a:hover {color: #00f;}
+
+body {
+	font: 11px/18px 'Lucida Grande', Verdana, sans-serif;
+	margin: 10px auto;
+	text-align: center;
+	width: 380px;
+}
+
+form {
+	background-color: #fafafa;
+	border: 1px solid #ccc;
+	margin: 10px 0;
+	padding: 5px 10px;
+}
+
+img {
+	padding: 0 0 1px 0;
+	vertical-align: middle;
+}
+
+p {
+	margin: 0 0 10px 0;
+	padding: 2px 10px;
+}
+
+p#notice {
+	background-color: #eef4fe;
+	border: 1px solid #8ec0f1;
+	color: #000;
+}
+
+p#oh-no {
+	background-color: #fdd;
+	border: 1px solid #c00;
+	color: #c00;
+}
+
+p#oh-yeah {
+	background-color: #dfd;
+	border: 1px solid #0a0;
+	color: #0a0;
+}
+
+table {width: 380px;}
+table tbody tr:hover {background-color: #f6fbfd;}
+
+table thead {
+	background-color: #fafafa;
+	text-align: center;
+}
+
+table tr td {
+	border: 1px solid #ccc;
+	padding: 2px 5px;
+}
+
+table tr td.delete {
+	text-align: center;
+	width: 35px;
+}
+
+table tr td.filename {
+	text-align: left;
+	width: 300px;
+}
+
+table tr td.filetype {
+	text-align: center;
+	width: 45px;
+}
