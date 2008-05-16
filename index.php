@@ -2,10 +2,10 @@
 	# Change these!
 	$main_url = "http://localhost/";
 	$password = "";
-	
+
 	$logged_in = (empty($password) or (isset($_COOKIE['uploader_password']) and $_COOKIE['uploader_password'] == md5($password)) or (isset($_POST['api_password']) and $_POST['api_password'] == $password));
 	$directory = (empty($_GET['dir'])) ? "." : $_GET['dir'] ;
-	
+
 	if (isset($_GET['login']) and !empty($_POST['password'])) {
 		if ($_POST['password'] == $password) {
 			setcookie("uploader_password", md5($_POST['password']), time() + 60 * 60 * 24 * 30, "/");
@@ -15,7 +15,7 @@
 			$message = '<p id="oh-no">Password incorrect.</p>';
 		}
 	}
-	
+
 	if ($logged_in) {
 		function rmbig($dir) { # Via WebCheatCheet.com
 			$dhandle = opendir($dir);
@@ -32,15 +32,15 @@
 				}
 				closedir($dhandle);
 			}
-		
+
 			rmdir($dir);
 		}
-	
+
 		function mkpath($path) { # Via Zingus J. Rinkle
 			if(@mkdir($path) or file_exists($path)) return true;
 			return (mkpath(dirname($path)) and mkdir($path));
 		}
-	
+
 		function random($length) { // Via http://us.php.net/rand
 			$pattern = "1234567890abcdefghijklmnopqrstuvwxyz";
 			$key = $pattern{rand(0,35)};
@@ -49,7 +49,7 @@
 			}
 			return $key;
 		}
-	
+
 		if (!empty($_FILES['add']) and isset($_GET['add'])) {
 			$strip = array(
 				'~', '`', '!', '@', '#', '$', '%', '^', '&', '*',
@@ -57,11 +57,11 @@
 				'\\', '|', ';', ':', '"', '\'', ',', '<', '>', '/',
 				'?', ' '
 			);
-	
+
 			$ext = end(explode(".", $_FILES['add']['name']));
 
 			$clean = str_replace($strip, '-', $_FILES['add']['name']);
-	
+
 			if (file_exists($directory."/".$clean)) {
 				$clean = str_replace(".".$ext, "", $clean);
 				$clean = $clean.random(3);
@@ -70,7 +70,7 @@
 
 			function newname($name) {
 				global $directory, $ext;
-	
+
 				if (file_exists($directory."/".$name)) {
 					$clean = str_replace(".".$ext, "", $name);
 					$clean = $clean.random(3);
@@ -79,17 +79,17 @@
 				} else {
 					return $name;
 				}
-		
+
 				return newname($clean);
 			}
-		
+
 			$strip_dot = ($directory == ".") ? "" : $directory."/" ;
 			if (@move_uploaded_file($_FILES['add']['tmp_name'], $directory."/".$clean))
 				$message = '<p id="oh-yeah"><a href="'.$main_url.$strip_dot.$clean.'">'.$clean.'</a></p>';
 			else
 				$message = '<p id="oh-no">An error has occured!</p>';
 		}
-	
+
 		if (isset($_POST['xml']) and $_POST['xml'] == "yes" and isset($_GET['add']) and isset($_FILES['add'])) {
 			header("Content-type: text/xml");
 ?>
@@ -103,7 +103,7 @@
 <?php
 			exit;
 		}
-	
+
 		if (!empty($_POST['_delete'])) {
 			$replace = array("_SLASH_" => "/", "_DOT_" => ".");
 			$target = str_replace(array_keys($replace), array_values($replace), $_POST['_delete']);
@@ -115,7 +115,7 @@
 				exit;
 			}
 		}
-	
+
 		if (!empty($_POST) and isset($_GET['mkdir'])) {
 			if (strstr($_POST['folder'], "/"))
 				if (mkpath($directory."/".$_POST['folder']))
@@ -127,7 +127,7 @@
 					$message = '<p id="oh-yeah">Directory created!</code></p>';
 				else
 					$message = '<p id="oh-no">Could not create directory.</p>';
-		
+
 		}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -161,7 +161,7 @@
 		$path = str_replace("/".substr(strrchr($directory, "/"), 1), "", $directory);
 	else
 		$path = $main_url;
-		
+
 	$link = (is_dir($path)) ? "?dir=".$path : $path ;
 ?>
 				<tr id="_DOT__DOT_">
@@ -175,7 +175,7 @@
 		if (substr($list, 0, 1) == "." or ($directory == "." and ($list == "index.php" or $list == "includes" or $list == "Icon?"))) continue;
 		$type = "page_white";
 		$path = ($directory == ".") ? $list : $directory."/".$list ;
-		
+
 		if (!is_dir($path)) {
 			$ext = end(explode(".", $list));
 
@@ -203,7 +203,7 @@
 			$icon = ($width <= 16 and $height <= 16) ? $link : "includes/images/picture.png" ;
 		} else {
 			$icon = "includes/images/".$type.".png";
-		} 
+		}
 ?>
 				<tr id="<?php echo $clean; ?>">
 					<td class="filetype"><img src="<?php echo $icon; ?>" alt="<?php echo $type; ?>" /></td>
@@ -242,6 +242,6 @@
 		</form>
 <?php
 	}
-?>	
+?>
 	</body>
 </html>
